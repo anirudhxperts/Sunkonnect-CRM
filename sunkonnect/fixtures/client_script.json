@@ -1,0 +1,69 @@
+[
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Quotation",
+  "enabled": 1,
+  "modified": "2025-01-22 12:32:14.602537",
+  "module": "Sunkonnect CRM",
+  "name": "Basic COGS Calculation",
+  "script": "frappe.ui.form.on('Quotation Item', {\r\n    custom_cogs: handle_field_change,\r\n    custom_business_development_costs: handle_field_change,\r\n    custom_contingency: handle_field_change,\r\n    custom_profit: handle_field_change,\r\n    custom_negotiation: handle_field_change,\r\n    custom_cs: handle_field_change,\r\n    custom_clp: handle_field_change,\r\n});\r\n\r\nfunction handle_field_change(frm, cdt, cdn) {\r\n    const item = locals[cdt][cdn];\r\n    update_item_fields(item);\r\n}\r\n\r\nfunction update_item_fields(item) {\r\n    const marginFields = [\r\n        item.custom_business_development_costs,\r\n        item.custom_contingency,\r\n        item.custom_profit,\r\n        item.custom_negotiation,\r\n        item.custom_cs,\r\n        item.custom_clp\r\n    ];\r\n\r\n    const marginSummation = marginFields.reduce((sum, value) => sum + (value || 0), 0) / 100;\r\n\r\n    const updatedRate = (item.custom_cogs || 0) * (1 + marginSummation);\r\n\r\n    if (item.custom_margin_summation !== marginSummation || item.rate !== updatedRate) {\r\n        frappe.model.set_value(item.doctype, item.name, {\r\n            custom_margin_summation: marginSummation,\r\n            rate: updatedRate\r\n        });\r\n    }\r\n}\r\n",
+  "view": "Form"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Quotation",
+  "enabled": 1,
+  "modified": "2025-01-22 12:19:11.937590",
+  "module": "Sunkonnect CRM",
+  "name": "Auto-Populate Terms and Conditions",
+  "script": "frappe.ui.form.on('Quotation', {\r\n    refresh(frm) {\r\n        const default_values = {\r\n            'custom_overview': 'Overview',\r\n            'custom_objective': 'Objective',\r\n            'custom_solution': 'Solution',\r\n            'custom_proposal': 'Proposal',\r\n            'custom_execution_strategy': 'Execution Strategy',\r\n            'custom_project_deliverables': 'Project Deliverables',\r\n            'custom_support_from_client': 'Support From Client',\r\n            'custom_work_overview': 'Statement of Work Overview',\r\n            'custom_fee_structure': 'Fee Structure',\r\n            'custom_fee_structure_optional_addons': 'Fee Structure Optional Add-ons',\r\n            'custom_conclusion': 'Conclusion',\r\n            'custom_terms_and_conditions': 'Terms Conditions',\r\n            'custom_service_by': 'Service By',\r\n            'custom_v2_body': 'V2 Body',\r\n            'custom_terms_conditions_v2': 'Terms Conditions V2',\r\n            'custom_dispute_resolution__indemnity': 'Dispute Resolution & Indemnity V2',\r\n            'custom_subject_reference': 'Subject Reference',\r\n            'custom_payment_schedule_v2': 'Payment Schedule',\r\n        };\r\n\r\n        Object.keys(default_values).forEach(field => {\r\n            if (!frm.doc[field]) {\r\n                frm.set_value(field, default_values[field]);\r\n            }\r\n        });\r\n    }\r\n});\r\n",
+  "view": "Form"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Opportunity",
+  "enabled": 1,
+  "modified": "2025-01-02 10:12:08.346353",
+  "module": "Sunkonnect CRM",
+  "name": "Hide Supplier and RFQ Buttons in Opportunity",
+  "script": "frappe.ui.form.on('Opportunity', {\n\trefresh(frm) {\n\t\tsetTimeout(() => {\n\t\t    frm.remove_custom_button('Supplier Quotation', 'Create');\n\t\t    frm.remove_custom_button('Request For Quotation', 'Create');\n\t\t})\n\t}\n})",
+  "view": "Form"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Lead",
+  "enabled": 1,
+  "modified": "2025-01-03 09:16:14.235528",
+  "module": "Sunkonnect CRM",
+  "name": "Sync WhatsApp No with Mobile No",
+  "script": "frappe.ui.form.on('Lead', {\n\tcustom_same_as_mobile_no(frm) {\n\t\tif (frm.doc.custom_same_as_mobile_no) {\n\t\t    mobileNo = frm.doc.mobile_no;\n\t\t    frappe.model.set_value(frm.doc.doctype, frm.doc.name, 'whatsapp_no', mobileNo);\n\t\t} else {\n\t\t    frappe.model.set_value(frm.doc.doctype, frm.doc.name, 'whatsapp_no', '');\n\t\t}\n\t}\n})",
+  "view": "Form"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Quotation",
+  "enabled": 1,
+  "modified": "2025-01-22 12:19:11.915551",
+  "module": "Sunkonnect CRM",
+  "name": "Fetch Only Child-Level Services",
+  "script": "frappe.ui.form.on('Quotation', {\n\tonload: function(frm) {\n\t\tvar service_fieldname = 'custom_service';\n\t\tfrm.fields_dict[service_fieldname].get_query = function(doc) {\n\t\t    return {\n\t\t        filters: {\n\t\t            is_group: ['=', 0] \n\t\t        }\n\t\t    }\n\t\t}\n\t}\n})",
+  "view": "Form"
+ },
+ {
+  "_liked_by": "[]",
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Quotation",
+  "enabled": 1,
+  "modified": "2025-01-22 12:19:11.887324",
+  "module": "Sunkonnect CRM",
+  "name": "Auto-Populate Template",
+  "script": "frappe.ui.form.on('Quotation', {\r\n    custom_template_v2(frm) {\r\n        if (frm.doc.custom_template_v2) {\r\n            localStorage.setItem('templateName', 'Sunkonnect Proposal');\r\n            let templateName = localStorage.getItem('templateName');\r\n            let inputElement = document.querySelector('input[data-fieldname=\"print_format\"]');\r\n            inputElement.value = templateName;\r\n        } else {\r\n            localStorage.removeItem('templateName');\r\n        }\r\n    }\r\n});\r\n",
+  "view": "Form"
+ }
+]
