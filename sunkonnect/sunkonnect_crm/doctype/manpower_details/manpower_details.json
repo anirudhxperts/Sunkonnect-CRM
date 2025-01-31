@@ -1,0 +1,52 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-01-31 11:03:00.182176",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "job_requisition",
+  "designation",
+  "no_of_position",
+  "status"
+ ],
+ "fields": [
+  {
+   "fieldname": "job_requisition",
+   "fieldtype": "Link",
+   "label": "Job Requisition",
+   "options": "Job Requisition"
+  },
+  {
+   "fetch_from": "job_requisition.designation",
+   "fieldname": "designation",
+   "fieldtype": "Data",
+   "label": "Designation"
+  },
+  {
+   "fetch_from": "job_requisition.no_of_positions",
+   "fieldname": "no_of_position",
+   "fieldtype": "Data",
+   "label": "No of Position"
+  },
+  {
+   "fetch_from": "job_requisition.status",
+   "fieldname": "status",
+   "fieldtype": "Data",
+   "label": "Status"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2025-01-31 11:07:34.910695",
+ "modified_by": "Administrator",
+ "module": "Sunkonnect CRM",
+ "name": "Manpower Details",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

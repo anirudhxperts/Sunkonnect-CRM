@@ -1,0 +1,78 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-01-31 10:44:30.921239",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "cogs",
+  "business_development_costs",
+  "contingency",
+  "profit",
+  "negotiation",
+  "cs",
+  "clp",
+  "margin_sum",
+  "rate"
+ ],
+ "fields": [
+  {
+   "fieldname": "cogs",
+   "fieldtype": "Currency",
+   "label": "COGS"
+  },
+  {
+   "fieldname": "business_development_costs",
+   "fieldtype": "Currency",
+   "label": "Business Development Costs"
+  },
+  {
+   "fieldname": "contingency",
+   "fieldtype": "Currency",
+   "label": "Contingency"
+  },
+  {
+   "fieldname": "profit",
+   "fieldtype": "Currency",
+   "label": "Profit"
+  },
+  {
+   "fieldname": "negotiation",
+   "fieldtype": "Currency",
+   "label": "Negotiation"
+  },
+  {
+   "fieldname": "cs",
+   "fieldtype": "Float",
+   "label": "CS%"
+  },
+  {
+   "fieldname": "clp",
+   "fieldtype": "Float",
+   "label": "CLP%"
+  },
+  {
+   "fieldname": "margin_sum",
+   "fieldtype": "Currency",
+   "label": "Margin Sum"
+  },
+  {
+   "fieldname": "rate",
+   "fieldtype": "Currency",
+   "label": "Rate"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2025-01-31 10:49:12.578804",
+ "modified_by": "Administrator",
+ "module": "Sunkonnect CRM",
+ "name": "Basic Costing",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
